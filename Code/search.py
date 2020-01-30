@@ -36,8 +36,8 @@ def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
     # implement binary_search_iterative and binary_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    return binary_search_iterative(array, item)
-    # return binary_search_recursive(array, item)
+    # return binary_search_iterative(array, item)
+    return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(arr, item):
@@ -71,7 +71,18 @@ def binary_search_recursive(array, item, left=None, right=None):
     # Best: O(1) - Middle element is the item
     # Average: O(log(n)) - Because we halve the working array every time
     # Worst: O(log(n)) - Even if it is the last possible iteration, it will still be log(n) time
-    pass
+    if left is None and right is None:
+        left = 0
+        right = len(array) - 1
+    if left > right:
+        return -1
+    mid_pos = (right + left) // 2
+    if array[mid_pos] == item:
+        return mid_pos
+    elif array[mid_pos] > item:
+        return binary_search_recursive(array, item, left, mid_pos - 1)
+    elif array[mid_pos] < item:
+        return binary_search_recursive(array, item, mid_pos + 1, right)
 
 
 if __name__ == "__main__":
@@ -83,7 +94,8 @@ if __name__ == "__main__":
     # x = 4
     arr = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
     # x = 'Julia'
-    x = 'Nabil'
+    # x = 'Nabil'
+    x = 'chris'
 
     # print('index: ', linear_search(arr, 2))
     result = binary_search(arr, x)
