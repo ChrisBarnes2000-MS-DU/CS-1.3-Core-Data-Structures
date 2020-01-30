@@ -45,7 +45,19 @@ def binary_search_iterative(array, item):
     # Best: O(1) - Middle element is the item
     # Average: O(log(n)) - Because we halve the working array every time
     # Worst: O(log(n)) - Even if it is the last possible iteration, it will still be log(n) time
-    pass
+    first = 0
+    last = len(array)-1
+    target = False
+    while(first <= last and not target):
+        mid = (first + last)//2
+        if array[mid] == item:
+            target = True
+        else:
+            if item < array[mid]:
+                last = mid - 1
+            else:
+                first = mid + 1
+        return target
 
 
 def binary_search_recursive(array, item, left=None, right=None):
@@ -61,4 +73,8 @@ if __name__ == "__main__":
     args = sys.argv[1:]  # Ignore script file name
     
     arr = [5,3,4,2,6,1]
-    print('index: ', linear_search(arr, 2))
+    # print('index: ', linear_search(arr, 2))
+    # print(binary_search([1, 2, 3, 5, 8], 6))
+    # print(binary_search([1, 2, 3, 5, 8], 5))
+    print(binary_search([1, 2, 3, 5, 6, 8, 9], 2))
+    # print('found 2: ', binary_search(arr, 2))
