@@ -40,7 +40,7 @@ def binary_search(array, item):
     # return binary_search_recursive(array, item)
 
 
-def binary_search_iterative(array, l, r, x):
+def binary_search_iterative(arr, item):
     # Time Complexity!
     # Best: O(1) - Middle element is the item
     # Average: O(log(n)) - Because we halve the working array every time
@@ -48,19 +48,23 @@ def binary_search_iterative(array, l, r, x):
     # Iterative Binary Search Function
     # It returns location of x in given array arr if present,
     # else returns -1
-    while l <= r:
-        mid = l + (r - l)/2
-        # Check if x is present at mid
-        if arr[mid] == x:
-            return mid
-        # If x is greater, ignore left half
-        elif arr[mid] < x:
-            l = mid + 1
-        # If x is smaller, ignore right half
+    l = 0
+    h = len(arr) -1
+    while l <= h:
+        mid_pos = (l + h) // 2
+        mid = arr[mid_pos]
+        # print('low[{}] mid[{}] high[{}] target[{}] looking at[{}]'.format(l,mid_pos, r, item, mid))
+        # Check if item is present at mid
+        if mid == item:
+            return mid_pos
+        # If item is greater, ignore left half
+        elif mid < item:
+            l = mid_pos + 1
+        # If item is smaller, ignore right half
         else:
-            r = mid - 1
+            h = mid_pos - 1
         # If we reach here, then the element was not present
-        return -1
+    return -1
 
 def binary_search_recursive(array, item, left=None, right=None):
     # Time Complexity!
@@ -69,23 +73,22 @@ def binary_search_recursive(array, item, left=None, right=None):
     # Worst: O(log(n)) - Even if it is the last possible iteration, it will still be log(n) time
     pass
 
+
 if __name__ == "__main__":
     """Read command-line arguments and convert given digits between bases."""
     import sys
     args = sys.argv[1:]  # Ignore script file name
     
     # arr = [5,3,4,2,6,1]
-    # print('index: ', linear_search(arr, 2))
-    
-    
-    # Test array binary search
-    arr = [2, 3, 4, 10, 40]
-    x = 10
+    # x = 4
+    arr = ['Alex', 'Brian', 'Julia', 'Kojin', 'Nabil', 'Nick', 'Winnie']
+    # x = 'Julia'
+    x = 'Nabil'
 
-    # Function call
-    result = binary_search_iterative(arr, 0, len(arr)-1, x)
+    # print('index: ', linear_search(arr, 2))
+    result = binary_search(arr, x)
 
     if result != -1:
-        print ("Element is present at index %d" % result)
+        print ("Element {} is present at index {}".format(x, result))
     else:
         print ("Element is not present in array")
