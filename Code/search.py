@@ -9,6 +9,10 @@ def linear_search(array, item):
 
 
 def linear_search_iterative(array, item):
+    # Time Complexity!
+    # Best: O(1) - First element
+    # Average: O(n) - Have to loop through every element in the array
+    # Worst: O(n) - Have to loop through every element in the array
     # loop over all array values until item is found
     for index, value in enumerate(array):
         if item == value:
@@ -17,8 +21,10 @@ def linear_search_iterative(array, item):
 
 
 def linear_search_recursive(array, item, index=0):
-    # TODO: implement linear search recursively here
-    # print('index: ', index, 'preview: ', array[index], 'target: ', item)
+    # Time Complexity!
+    # Best: O(1) - First element
+    # Average: O(n) - Have to loop through every element in the array
+    # Worst: O(n) - Have to loop through every element in the array
     if item == array[index]:
         return index
     else:
@@ -35,17 +41,19 @@ def binary_search(array, item):
 
 
 def binary_search_iterative(array, item):
-    # TODO: implement binary search iteratively here
+    # Time Complexity!
+    # Best: O(1) - Middle element is the item
+    # Average: O(log(n)) - Because we halve the working array every time
+    # Worst: O(log(n)) - Even if it is the last possible iteration, it will still be log(n) time
     pass
-    # once implemented, change binary_search to call binary_search_iterative
-    # to verify that your iterative implementation passes all tests
 
 
 def binary_search_recursive(array, item, left=None, right=None):
-    # TODO: implement binary search recursively here
+    # Time Complexity!
+    # Best: O(1) - Middle element is the item
+    # Average: O(log(n)) - Because we halve the working array every time
+    # Worst: O(log(n)) - Even if it is the last possible iteration, it will still be log(n) time
     pass
-    # once implemented, change binary_search to call binary_search_recursive
-    # to verify that your recursive implementation passes all tests
 
 if __name__ == "__main__":
     """Read command-line arguments and convert given digits between bases."""
