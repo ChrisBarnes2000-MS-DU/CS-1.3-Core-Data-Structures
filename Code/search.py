@@ -40,25 +40,27 @@ def binary_search(array, item):
     # return binary_search_recursive(array, item)
 
 
-def binary_search_iterative(array, item):
+def binary_search_iterative(array, l, r, x):
     # Time Complexity!
     # Best: O(1) - Middle element is the item
     # Average: O(log(n)) - Because we halve the working array every time
     # Worst: O(log(n)) - Even if it is the last possible iteration, it will still be log(n) time
-    first = 0
-    last = len(array)-1
-    target = False
-    while(first <= last and not target):
-        mid = (first + last)//2
-        if array[mid] == item:
-            target = True
+    # Iterative Binary Search Function
+    # It returns location of x in given array arr if present,
+    # else returns -1
+    while l <= r:
+        mid = l + (r - l)/2
+        # Check if x is present at mid
+        if arr[mid] == x:
+            return mid
+        # If x is greater, ignore left half
+        elif arr[mid] < x:
+            l = mid + 1
+        # If x is smaller, ignore right half
         else:
-            if item < array[mid]:
-                last = mid - 1
-            else:
-                first = mid + 1
-        return target
-
+            r = mid - 1
+        # If we reach here, then the element was not present
+        return -1
 
 def binary_search_recursive(array, item, left=None, right=None):
     # Time Complexity!
@@ -72,9 +74,18 @@ if __name__ == "__main__":
     import sys
     args = sys.argv[1:]  # Ignore script file name
     
-    arr = [5,3,4,2,6,1]
+    # arr = [5,3,4,2,6,1]
     # print('index: ', linear_search(arr, 2))
-    # print(binary_search([1, 2, 3, 5, 8], 6))
-    # print(binary_search([1, 2, 3, 5, 8], 5))
-    print(binary_search([1, 2, 3, 5, 6, 8, 9], 2))
-    # print('found 2: ', binary_search(arr, 2))
+    
+    
+    # Test array binary search
+    arr = [2, 3, 4, 10, 40]
+    x = 10
+
+    # Function call
+    result = binary_search_iterative(arr, 0, len(arr)-1, x)
+
+    if result != -1:
+        print ("Element is present at index %d" % result)
+    else:
+        print ("Element is not present in array")
