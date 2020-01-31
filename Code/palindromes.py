@@ -18,10 +18,20 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
-    # TODO: implement the is_palindrome function iteratively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_iterative
-    # to verify that your iterative implementation passes all tests
+    letters = []
+    size = len(text)
+    mid = size//2
+    
+    for letter in text:
+        letters.append(letter)
+    print(letters)
+
+    for i in range(size):
+        print(letters[i])
+    #     if letters[i] is not letters[size-i]:
+    #         return False
+    # return True
+
 
 
 def is_palindrome_recursive(text, left=None, right=None):

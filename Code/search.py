@@ -74,7 +74,7 @@ def binary_search_recursive(array, item, left=None, right=None):
     if left is None and right is None:
         left = 0
         right = len(array) - 1
-    if left > right:
+    if left >= right:
         return -1
     mid_pos = (right + left) // 2
     if array[mid_pos] == item:
