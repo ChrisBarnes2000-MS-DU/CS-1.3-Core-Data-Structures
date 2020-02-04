@@ -18,19 +18,15 @@ def is_palindrome(text):
 
 
 def is_palindrome_iterative(text):
-    letters = []
     size = len(text)
     mid = size//2
-    
-    for letter in text:
-        letters.append(letter)
-    print(letters)
 
-    for i in range(size):
-        print(letters[i])
-    #     if letters[i] is not letters[size-i]:
-    #         return False
-    # return True
+    for i in range(mid):
+        if text[i].lower().isalpha() != text[(size-1)-i].lower().isalpha():
+            print("{}:@{} doesn't match {}:@{}".format(
+                text[i], i, text[(size-1)-i], (size-1)-i))
+            return False
+    return True
 
 
 
