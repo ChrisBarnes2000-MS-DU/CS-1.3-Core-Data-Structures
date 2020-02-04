@@ -13,8 +13,8 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    return is_palindrome_iterative(text)
-    # return is_palindrome_recursive(text)
+    # return is_palindrome_iterative(text)
+    return is_palindrome_recursive(text)
 
 
 def is_palindrome_iterative(text):
@@ -31,10 +31,20 @@ def is_palindrome_iterative(text):
 
 
 def is_palindrome_recursive(text, left=None, right=None):
-    # TODO: implement the is_palindrome function recursively here
-    pass
-    # once implemented, change is_palindrome to call is_palindrome_recursive
-    # to verify that your iterative implementation passes all tests
+    mid = len(text) // 2
+    if left is None and right is None:                                  #Just starting
+        left = 0
+        right = len(text)-1
+    # At the middle yet?
+    elif left < mid and text[left].lower().isalpha() != text[right].lower().isalpha():
+        print("{}:{} doesn't match {}:{}".format(  # Not a match
+            left, text[left], right, text[right]))
+        return False
+    else :
+        print("{}:{} matches {}:{}".format(  # Found a match
+            left, text[left], right, text[right]))
+        is_palindrome_recursive(text, left + 1, right - 1)  # Recursive Call
+    return True
 
 
 def main():
