@@ -18,15 +18,34 @@ def decode(digits, base):
     # Handle up to base 36 [0-9a-z]
     assert 2 <= base <= 36, 'base is out of range: {}'.format(base)
     # Decode digits from binary (base 2)
-    if base == 2:
-        return int(digits, 2)
-    # Decode digits from hexadecimal (base 16)
-    if base == 16:
-        return int(digits, 16)
-    if base == 10:
-        return int(digits)
-    # TODO: Decode digits from any base (2 up to 36)
-    # ...
+    # if base == 2:
+    #     return int(digits, 2)
+    # # Decode digits from hexadecimal (base 16)
+    # if base == 16:
+    #     return int(digits, 16)
+    # if base == 10:
+    #     return int(digits)
+    # # TODO: Decode digits from any base (2 up to 36)
+    digits_str = digits.lower().split('.')
+    exp = 0
+
+    try:
+        exp = 0 - len(digits_str[1])
+    except:
+        'No radix point'
+
+    decode = 0
+
+    for part in digits_str[::-1]:
+        decimal = 0
+        for digit in part[::-1]:
+            decimal += (string.digits +
+                        string.ascii_lowercase).index(digit) * base**exp
+            exp += 1
+        decode += decimal
+
+    return decode
+
 
 
 def encode(number, base):
