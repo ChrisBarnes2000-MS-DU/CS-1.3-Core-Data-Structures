@@ -58,15 +58,58 @@ def encode(number, base):
     # Handle unsigned numbers only for now
     # assert number >= 0, 'number is negative: {}'.format(number)
     # Encode number in binary (base 2)
-    if base == 2:
-        return f'{number:#b}'
-    if base == 10:
-        return f'{number:#0}'
-    # Encode number in hexadecimal (base 16)
-    if base == 16:
-        return f'{number:#x}'
-    # TODO: Encode number in any base (2 up to 36)
-    # return f'{number:#o}'
+    # if base == 2:
+    #     return f'{number:#b}'
+    # if base == 10:
+    #     return f'{number:#0}'
+    # # Encode number in hexadecimal (base 16)
+    # if base == 16:
+    #     return f'{number:#x}'
+    # # TODO: Encode number in any base (2 up to 36)
+    # # return f'{number:#o}'
+    if number < 0:
+        assert base == 2, 'Can only encode negative numbers in binary'
+        return negative_binary(encode, (0 - number))  # callback function
+    else:
+        # recursive -- Encode number in any base (2 up to 36)
+        base_digits = (string.digits + string.ascii_lowercase)[:base]
+        if number < base:
+            return base_digits[number]
+        else:
+            return encode(number // base, base) + base_digits[number % base]
+
+    # try iterative
+
+
+def negative_binary(encode, number):
+    def invert(binary):
+        return ''.join(['1' if bit == '0' else '0' for bit in binary])
+
+    num_encode = encode(number, 2)[::-1]
+    if len(num_encode) > 3:
+        num_encode += (8 - len(num_encode)) * '0'
+    else:
+        num_encode += (4 - len(num_encode)) * '0'
+    num_encode = invert(num_encode)
+    neg_bin = ''
+    carry = True
+    for bit in num_encode:
+        if carry:
+            bit_sum = int(bit) + 1
+            if bit_sum > 1:
+                if bit_sum == 2:
+                    neg_bin += '0'
+                if bit_sum == 3:
+                    neg_bin += '1'
+                carry = True
+            else:
+                carry = False
+                neg_bin += str(bit_sum)
+        else:
+            neg_bin += bit
+
+    return neg_bin[::-1]
+
 
 
 def convert(digits, base1, base2):
