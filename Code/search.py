@@ -25,6 +25,8 @@ def linear_search_recursive(array, item, index=0):
     # Best: O(1) - First element
     # Average: O(n) - Have to loop through every element in the array
     # Worst: O(n) - Have to loop through every element in the array
+    if index >= len(array):
+        return
     if item == array[index]:
         return index
     else:
@@ -36,8 +38,8 @@ def binary_search(array, item):
     """return the index of item in sorted array or None if item is not found"""
     # implement binary_search_iterative and binary_search_recursive below, then
     # change this to call your implementation to verify it passes all tests
-    return binary_search_iterative(array, item)
-    # return binary_search_recursive(array, item)
+    # return binary_search_iterative(array, item)
+    return binary_search_recursive(array, item)
 
 
 def binary_search_iterative(arr, item):
