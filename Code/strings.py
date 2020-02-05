@@ -10,7 +10,7 @@ def contains(text, pattern):
     return False
 
 
-def find_index(text, pattern):
+def find_index(text, pattern, index=0):
     """Return the starting index of the first occurrence of pattern in text,
     or None if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
@@ -19,7 +19,7 @@ def find_index(text, pattern):
     letters = list(text)
     pat = list(pattern)
 
-    for i in range(len(letters)):
+    for i in range(index, len(letters)):
         # if letters[i] == pat[0]:
         for j in range(0, len(pat)):
             if letters[i+j] != pat[j]:
@@ -33,15 +33,24 @@ def find_all_indexes(text, pattern):
     or an empty list if not found."""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
-    # TODO: Implement find_all_indexes here (iteratively and/or recursively)
+    occurrences = []
+    i = 0
+    if contains(text, pattern):
+        i = find_index(text, pattern, i)
+        print(i)
+        if i is not False:
+            occurrences.append(i)
+        else:
+            print("Found all Indexes")
+    return occurrences
 
 
 def test_string_algorithms(text, pattern):
     found = contains(text, pattern)
     print('contains({!r}, {!r}) => {}'.format(text, pattern, found))
     # TODO: Uncomment these lines after you implement find_index
-    index = find_index(text, pattern)
-    print('find_index({!r}, {!r}) => {}'.format(text, pattern, index))
+    # index = find_index(text, pattern)
+    # print('find_index({!r}, {!r}) => {}'.format(text, pattern, index))
     # TODO: Uncomment these lines after you implement find_all_indexes
     # indexes = find_all_indexes(text, pattern)
     # print('find_all_indexes({!r}, {!r}) => {}'.format(text, pattern, indexes))
