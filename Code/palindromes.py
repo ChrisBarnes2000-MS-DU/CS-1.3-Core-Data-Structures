@@ -49,32 +49,29 @@ def is_palindrome(text):
 
 def is_palindrome_recursive(text, left=None, right=None):
     """Recursive function for determining if text is a palindrome."""
-    
-    mid = len(text) // 2
-    if left is right is None:
+    if left is None and right is None:
         ## initialize left and right indices
-        return is_palindrome_recursive(text, left=0, right=len(text)-1)
-    if left >= right:
-        ## Base case: left and right indices have overlapped, text must be a
-        ## palindrome
+        left = 0
+        right = len(text) - 1
+    if left > right:
+        ## Base case: left and right indices have overlapped, text must be a palindrome
         return True
-    elif text[left].lower().isalpha() != text[right].lower().isalpha():
-        ## left and right letters aren't equal; text isn't a palindrome
-        print("{}:{} doesn't match {}:{}".format(  # Not a match
-            left, text[left], right, text[right]))
-        return False
-    else:
-        print("{}:{} matches {}:{}".format(  # Found a match
-            left, text[left], right, text[right]))
-        is_palindrome_recursive(text, left + 1, right - 1)  # Recursive Call
-    if not text[right].isalpha():
-        # Recursive Call Shorten Right
-        is_palindrome_recursive(text, left, right - 1)
+
+    text = text.lower()
+
     if not text[left].isalpha():
-        # Recursive Call Shorten Left
-        is_palindrome_recursive(text, left + 1, right)
-    # so far, text is a palindrome
-    return is_palindrome_recursive(text, left+1, right-1)
+        ## left character isn't a letter; move left index to the right by one
+        return is_palindrome_recursive(text, left + 1, right)
+
+    elif not text[right].isalpha():
+        ## right character isn't a letter; move right index to the left by one
+        return is_palindrome_recursive(text, left, right - 1)
+
+    elif text[left] == text[right]:
+        return is_palindrome_recursive(text, left + 1, right - 1)
+    else:
+        return False
+
 
 def main():
     import sys
