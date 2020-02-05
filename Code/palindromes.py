@@ -13,42 +13,36 @@ def is_palindrome(text):
     # implement is_palindrome_iterative and is_palindrome_recursive below, then
     # change this to call your implementation to verify it passes all tests
     assert isinstance(text, str), 'input is not a string: {}'.format(text)
-    # return is_palindrome_iterative(text)
-    return is_palindrome_recursive(text)
-
-# def find_letter(text, start, stop, step):
-#     """Looks through text, returning only letters along the way.
-#     Yields:
-#         (int) index of next letter in text."""
-#     for i in range(start, stop, step):
-#         if (letter := text[i]).isalpha():
-#             yield i
+    return is_palindrome_iterative(text)
+    # return is_palindrome_recursive(text)
 
 
-# def is_palindrome_iterative(text):
-#     size = len(text)
-#     mid = size//2
-
-#     left = find_letter(text, 0, mid, 1)
-#     right = find_letter(text, size-1, mid, -1)
-
-#     try:
-#         left = next(left_it)
-#         right = next(right_it)
-#     except StopIteration:
-#         return True
-#     while left < right:
-#         if text[left.lower() != text[right].lower():
-#             print("{}:@{} doesn't match {}:@{}".format(
-#                 text[i], i, text[(size-1)-i], (size-1)-i))
-#             return False
-#         left = next(left_it)
-#         right = next(right_it)
-#     return True
+def is_palindrome_iterative(text):
+    """Iterative function for determining if text is a palindrome."""
+    # Best time complexity -- O(1), text is either empty or contains one character
+    # Average time complexity -- O(n/2), text is palindrome
+    text = text.lower()
+    left = 0
+    right = len(text) - 1
+    while left < right:
+        if not text[left].isalpha():
+            left += 1
+            continue
+        if not text[right].isalpha():
+            right -= 1
+            continue
+        if text[left] == text[right]:
+            left += 1
+            right -= 1
+        else:
+            return False
+    return True
 
 
 def is_palindrome_recursive(text, left=None, right=None):
     """Recursive function for determining if text is a palindrome."""
+    # Best time complexity - - O(1), text is either empty or contains one character
+    # Average time complexity - - O(n/2), text is palindrome
     if left is None and right is None:
         ## initialize left and right indices
         left = 0
