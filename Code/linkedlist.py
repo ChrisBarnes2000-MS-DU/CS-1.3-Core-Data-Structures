@@ -5,12 +5,12 @@ class Node(object):
     def __init__(self, data):
         """Initialize this node with the given data."""
         self.data = data
-        self.index = 0
+        self.ind = 0
         self.next = None
 
     def __repr__(self):
         """Return a string representation of this node."""
-        return 'Node({!r})'.format(self.data)
+        return 'Node({!r}:{!r})'.format(self.ind, self.data)
 
 
 class LinkedList(object):
@@ -79,13 +79,18 @@ class LinkedList(object):
         Best case running time: O(1) 1 or less elements to look through
         worst case running time: O(N) more than 1 element"""
         # Check if the given index is out of range and if so raise an error
+        # print("--- next find ---")
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        elif not self.is_empty:
-            temp = self.head
-            while temp.index != index:
+        # elif not self.is_empty:
+        temp = self.head
+        while temp is not None:
+            # print('\t',temp.ind, temp, temp.next)
+            # print('\tCurrent: ', temp)
+            if temp.ind == index:
+                return temp.data
+            else:
                 temp = temp.next
-            return temp
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
@@ -96,11 +101,11 @@ class LinkedList(object):
         new_node = Node(item)
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-       elif not self.is_empty:
+        elif not self.is_empty:
             prev = self.head
-            while prev.index != index-1:
+            while prev.ind != index-1:
                 prev.next
-            if prev.index == index-1:
+            if prev.ind == index-1:
                 temp = prev.next
                 prev.next = new_node
                 new_node.next = temp
@@ -111,7 +116,6 @@ class LinkedList(object):
         worst case running time: O(N) more than 1 element"""
         # Create a new node to hold the given item
         new_node = Node(item)
-        new_node.index = self.size + 1
         # Check if this linked list is empty
         if self.is_empty():
             # Assign head to new node
@@ -120,6 +124,7 @@ class LinkedList(object):
             # Otherwise insert new node after tail
             self.tail.next = new_node
         # Update tail to new node regardless
+        new_node.ind = self.size
         self.size += 1
         self.tail = new_node
 
@@ -216,36 +221,36 @@ class LinkedList(object):
 
 def test_linked_list():
     ll = LinkedList()
-    print(ll)
+    # print(ll)
 
-    print('Appending items:')
+    # print('Appending items:')
     ll.append('A')
-    print(ll)
+    # print(ll)
     ll.append('B')
-    print(ll)
+    # print(ll)
     ll.append('C')
     print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
+    # print('head: {}'.format(ll.head))
+    # print('tail: {}'.format(ll.tail))
+    # print('size: {}'.format(ll.size))
+    # print('length: {}'.format(ll.length()))
 
     print('Getting items by index:')
     for index in range(ll.size):
         item = ll.get_at_index(index)
         print('get_at_index({}): {!r}'.format(index, item))
 
-    print('Deleting items:')
-    ll.delete('B')
-    print(ll)
-    ll.delete('C')
-    print(ll)
-    ll.delete('A')
-    print(ll)
-    print('head: {}'.format(ll.head))
-    print('tail: {}'.format(ll.tail))
-    print('size: {}'.format(ll.size))
-    print('length: {}'.format(ll.length()))
+    # print('Deleting items:')
+    # ll.delete('B')
+    # print(ll)
+    # ll.delete('C')
+    # print(ll)
+    # ll.delete('A')
+    # print(ll)
+    # print('head: {}'.format(ll.head))
+    # print('tail: {}'.format(ll.tail))
+    # print('size: {}'.format(ll.size))
+    # print('length: {}'.format(ll.length()))
 
 
 if __name__ == '__main__':
