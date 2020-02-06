@@ -159,11 +159,13 @@ class LinkedList(object):
     def replace(self, old_item, new_item):
         """Replace the given old_item in this linked list with given new_item
         using the same node, or raise ValueError if old_item is not found.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
-        # TODO: Find the node containing the given old_item and replace its
-        # data with new_item, without creating a new node object
-        pass
+        Best case running time: O(1) 1 or less elements to look through
+        worst case running time: O(N) more than 1 element"""
+        node = self.find(lambda item: item == old_item)
+        if node is not None:
+            node.data = new_item
+            return
+        raise ValueError(f'Item not found: {old_item}')
 
     def delete(self, item):
         """Delete the given item from this linked list, or raise ValueError.
