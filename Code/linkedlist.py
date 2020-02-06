@@ -24,7 +24,6 @@ class LinkedList(object):
         if iterable is not None:
             for item in iterable:
                 self.append(item)
-                self.size += 1
 
     def __str__(self):
         """Return a formatted string representation of this linked list."""
@@ -101,14 +100,22 @@ class LinkedList(object):
         new_node = Node(item)
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
+        if index == 0:
+            self.prepend(item)
+        elif index == self.size:
+            self.append(item)
         elif not self.is_empty:
             prev = self.head
             while prev.ind != index-1:
                 prev.next
             if prev.ind == index-1:
                 temp = prev.next
-                prev.next = new_node
                 new_node.next = temp
+                
+                prev.next = new_node
+                prev.ind = index
+                self.size += 1
+                ####### update_index()
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
@@ -141,6 +148,9 @@ class LinkedList(object):
             # Otherwise insert new node before head
             new_node.next = self.head
         # Update head to new node regardless
+        ####### update_index()
+        ####### new_node.ind = 0
+        self.size += 1
         self.head = new_node
 
     def find(self, quality):
@@ -161,12 +171,27 @@ class LinkedList(object):
         # We never found data satisfying quality, but have to return something
         return None  # Constant time to return None
 
+    def _find(self, quality):
+        """Return an node from this linked list satisfying the given quality.
+        TODO: Best case running time: O(1) Function only runs once finding head
+        TODO: Worst case running time: O(n) Function runs through n loops of length"""
+        # TODO: Loop through all nodes to find item where quality(item) is True
+        # TODO: Check if node's data satisfies given quality function
+        node = self.head
+
+        while node is not None:
+            if quality(node.data):
+                return node
+            else:
+                node = node.next
+        return None
+
     def replace(self, old_item, new_item):
         """Replace the given old_item in this linked list with given new_item
         using the same node, or raise ValueError if old_item is not found.
         Best case running time: O(1) 1 or less elements to look through
         worst case running time: O(N) more than 1 element"""
-        node = self.find(lambda item: item == old_item)
+        node = self._find(lambda item: item == old_item)
         if node is not None:
             node.data = new_item
             return
@@ -200,18 +225,21 @@ class LinkedList(object):
                 previous.next = node.next
                 # Unlink the found node from its next node
                 node.next = None
+                self.size -= 1
             # Check if we found a node at the head
             if node is self.head:
                 # Update head to the next node
                 self.head = node.next
                 # Unlink the found node from the next node
                 node.next = None
+                self.size -= 1
             # Check if we found a node at the tail
             if node is self.tail:
                 # Check if there is a node before the found node
                 if previous is not None:
                     # Unlink the previous node from the found node
                     previous.next = None
+                    self.size -= 1
                 # Update tail to the previous node regardless
                 self.tail = previous
         else:
@@ -221,36 +249,36 @@ class LinkedList(object):
 
 def test_linked_list():
     ll = LinkedList()
-    # print(ll)
+    print(ll)
 
-    # print('Appending items:')
+    print('Appending items:')
     ll.append('A')
-    # print(ll)
+    print(ll)
     ll.append('B')
-    # print(ll)
+    print(ll)
     ll.append('C')
     print(ll)
-    # print('head: {}'.format(ll.head))
-    # print('tail: {}'.format(ll.tail))
-    # print('size: {}'.format(ll.size))
-    # print('length: {}'.format(ll.length()))
+    print('head: {}'.format(ll.head))
+    print('tail: {}'.format(ll.tail))
+    print('size: {}'.format(ll.size))
+    print('length: {}'.format(ll.length()))
 
     print('Getting items by index:')
     for index in range(ll.size):
         item = ll.get_at_index(index)
         print('get_at_index({}): {!r}'.format(index, item))
 
-    # print('Deleting items:')
-    # ll.delete('B')
-    # print(ll)
-    # ll.delete('C')
-    # print(ll)
-    # ll.delete('A')
-    # print(ll)
-    # print('head: {}'.format(ll.head))
-    # print('tail: {}'.format(ll.tail))
-    # print('size: {}'.format(ll.size))
-    # print('length: {}'.format(ll.length()))
+    print('Deleting items:')
+    ll.delete('B')
+    print(ll)
+    ll.delete('C')
+    print(ll)
+    ll.delete('A')
+    print(ll)
+    print('head: {}'.format(ll.head))
+    print('tail: {}'.format(ll.tail))
+    print('size: {}'.format(ll.size))
+    print('length: {}'.format(ll.length()))
 
 
 if __name__ == '__main__':
