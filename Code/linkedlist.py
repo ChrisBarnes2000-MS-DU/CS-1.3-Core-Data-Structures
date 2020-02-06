@@ -5,6 +5,7 @@ class Node(object):
     def __init__(self, data):
         """Initialize this node with the given data."""
         self.data = data
+        self.index = 0
         self.next = None
 
     def __repr__(self):
@@ -19,7 +20,6 @@ class LinkedList(object):
         self.head = None  # First node
         self.tail = None  # Last node
         self.size = 0  # Number of nodes
-        self.index = 0
         # Append the given items
         if iterable is not None:
             for item in iterable:
@@ -58,7 +58,7 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        Best case running time: O(1) only 1 element
+        Best case running time: O(1) 1 or less elements to look through
         worst case running time: O(N) more than 1 element"""
         # Node counter initialized to zero
         node_count = 0
@@ -76,7 +76,7 @@ class LinkedList(object):
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: O(1) only 1 element
+        Best case running time: O(1) 1 or less elements to look through
         worst case running time: O(N) more than 1 element"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
@@ -90,18 +90,28 @@ class LinkedList(object):
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) 1 or less elements to look through
+        worst case running time: O(N) more than 1 element"""
         # Check if the given index is out of range and if so raise an error
+        new_node = Node(item)
         if not (0 <= index <= self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node before the given index and insert item after it
+       elif not self.is_empty:
+            prev = self.head
+            while prev.index != index-1:
+                prev.next
+            if prev.index == index-1:
+                temp = prev.next
+                prev.next = new_node
+                new_node.next = temp
 
     def append(self, item):
         """Insert the given item at the tail of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) 1 or less elements to look through
+        worst case running time: O(N) more than 1 element"""
         # Create a new node to hold the given item
         new_node = Node(item)
+        new_node.index = self.size + 1
         # Check if this linked list is empty
         if self.is_empty():
             # Assign head to new node
@@ -110,11 +120,12 @@ class LinkedList(object):
             # Otherwise insert new node after tail
             self.tail.next = new_node
         # Update tail to new node regardless
+        self.size += 1
         self.tail = new_node
 
     def prepend(self, item):
         """Insert the given item at the head of this linked list.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best and worst case running time: O(1) always adds to the front"""
         # Create a new node to hold the given item
         new_node = Node(item)
         # Check if this linked list is empty
