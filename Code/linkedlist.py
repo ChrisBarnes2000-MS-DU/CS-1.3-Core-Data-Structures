@@ -19,10 +19,12 @@ class LinkedList(object):
         self.head = None  # First node
         self.tail = None  # Last node
         self.size = 0  # Number of nodes
+        self.index = 0
         # Append the given items
         if iterable is not None:
             for item in iterable:
                 self.append(item)
+                self.size += 1
 
     def __str__(self):
         """Return a formatted string representation of this linked list."""
@@ -56,7 +58,8 @@ class LinkedList(object):
 
     def length(self):
         """Return the length of this linked list by traversing its nodes.
-        Best and worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) only 1 element
+        worst case running time: O(N) more than 1 element"""
         # Node counter initialized to zero
         node_count = 0
         # Start at the head node
@@ -73,12 +76,16 @@ class LinkedList(object):
     def get_at_index(self, index):
         """Return the item at the given index in this linked list, or
         raise ValueError if the given index is out of range of the list size.
-        Best case running time: ??? under what conditions? [TODO]
-        Worst case running time: ??? under what conditions? [TODO]"""
+        Best case running time: O(1) only 1 element
+        worst case running time: O(N) more than 1 element"""
         # Check if the given index is out of range and if so raise an error
         if not (0 <= index < self.size):
             raise ValueError('List index out of range: {}'.format(index))
-        # TODO: Find the node at the given index and return its data
+        elif not self.is_empty:
+            temp = self.head
+            while temp.index != index:
+                temp = temp.next
+            return temp
 
     def insert_at_index(self, index, item):
         """Insert the given item at the given index in this linked list, or
