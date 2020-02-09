@@ -8,7 +8,9 @@ def empty_pat(text):
 
 
 def contains(text, pattern):
-    """Return a boolean indicating whether pattern occurs in text."""
+    """Return a boolean indicating whether pattern occurs in text.
+    Best Case run time: O(1) pattern empty
+    Worst Case run time: O(N) Runs find index it it finds the first match"""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement contains here (iteratively and/or recursively)
@@ -17,7 +19,10 @@ def contains(text, pattern):
 
 def find_index(text, pattern, index=0):
     """Return the starting index of the first occurrence of pattern in text,
-    or None if not found."""
+    or None if not found.
+    Best Case run time: O(1) pattern is empty return 0
+    Average Case run time: O(i) finds the first matching index and returns it
+    Worst Case run time: O(N) can't find any matches runs through hole text"""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     # TODO: Implement find_index here (iteratively and/or recursively)
@@ -36,7 +41,9 @@ def find_index(text, pattern, index=0):
 
 def find_all_indexes(text, pattern):
     """Return a list of starting indexes of all occurrences of pattern in text,
-    or an empty list if not found."""
+    or an empty list if not found.
+    Best Case run time: O(i) finds the first index and returns
+    Average/Worst Case run time: O(N) loops through entire text"""
     assert isinstance(text, str), 'text is not a string: {}'.format(text)
     assert isinstance(pattern, str), 'pattern is not a string: {}'.format(text)
     occurrences = []
@@ -53,6 +60,30 @@ def find_all_indexes(text, pattern):
         return occurrences
     else :
         return "There are no Matches"
+
+
+def is_anagram(word1, word2):
+    if len(word1) == 1 and word1 == word2:
+        return True
+    for letter in word1:
+        try:
+            two_index = word2.index(letter)
+            return is_anagram(word1[1:], word2[: two_index] + word2[two_index+1:])
+        except:
+            return False
+
+
+def anagrams(text):
+    f = open("/usr/share/dict/words", "r")
+    contents = f.read()
+    words_list = contents.split("\n")
+    f.close()
+    anagram_list = []
+    for word in words_list:
+        if len(text) == len(word) and text != word:
+            if is_anagram(text, word):
+                anagram_list.append(word)
+    return anagram_list
 
 
 def test_string_algorithms(text, pattern):
