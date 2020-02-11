@@ -243,7 +243,9 @@ class LinkedList(object):
                     previous.next = None
                     self.size -= 1
                 # Update tail to the previous node regardless
+                self.out = self.tail
                 self.tail = previous
+                return self.out.data
         else:
             # Otherwise raise an error to tell the user that delete has failed
             raise ValueError('Item not found: {}'.format(item))
