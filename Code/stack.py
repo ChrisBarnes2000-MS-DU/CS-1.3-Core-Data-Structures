@@ -40,7 +40,7 @@ class LinkedStack(object):
     def peek(self):
         """Return the item on the top of this stack without removing it,
         or None if this stack is empty."""
-        # TODO: Return top item, if any
+        return self.tail.data if not self.is_empty()
 
     def pop(self):
         """Remove and return the item on the top of this stack,
