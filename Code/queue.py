@@ -29,13 +29,13 @@ class LinkedQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
-        # print("enque ", item)
+        Running time: O(1) jump to tail and update next pointer constat time"""
         self.list.append(item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
-        or None if this queue is empty."""
+        or None if this queue is empty.
+        Running time: O(1) Jump to head and return"""
         if self.is_empty():
             return None
         return self.list.head.data
@@ -43,7 +43,7 @@ class LinkedQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1) Although deleting we are only looking at first one so its a constat look up"""
         if self.is_empty():
             raise ValueError("this queue is empty")
         return self.list.delete(self.list.head.data)
@@ -75,12 +75,13 @@ class ArrayQueue(object):
 
     def enqueue(self, item):
         """Insert the given item at the back of this queue.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(1)* Averagely just O(1) as of how arrays are stored but if its full it has to make a new array giving the occasional O(n)"""
         self.list.append(item)
 
     def front(self):
         """Return the item at the front of this queue without removing it,
-        or None if this queue is empty."""
+        or None if this queue is empty.
+        Running time: O(1) simple calculation due to how arrays are stored in memory"""
         if self.is_empty():
             return None
         return self.list[0]
@@ -88,7 +89,7 @@ class ArrayQueue(object):
     def dequeue(self):
         """Remove and return the item at the front of this queue,
         or raise ValueError if this queue is empty.
-        Running time: O(???) – Why? [TODO]"""
+        Running time: O(n) after removing the first element the rest have to shift over"""
         if self.is_empty():
             raise ValueError("this queue is empty")
         return self.list.pop(0)
