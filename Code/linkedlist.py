@@ -231,10 +231,12 @@ class LinkedList(object):
             # Check if we found a node at the head
             if node is self.head:
                 # Update head to the next node
+                self.out = self.head
                 self.head = node.next
                 # Unlink the found node from the next node
                 node.next = None
                 self.size -= 1
+                return self.out.data
             # Check if we found a node at the tail
             if node is self.tail:
                 # Check if there is a node before the found node
