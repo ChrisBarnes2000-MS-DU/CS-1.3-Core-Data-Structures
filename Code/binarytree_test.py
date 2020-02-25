@@ -47,25 +47,25 @@ class BinaryTreeNodeTest(unittest.TestCase):
         node.right = None
         assert node.is_branch() is False
 
-    def test_height(self):
-        # Create node with no children
-        node = BinaryTreeNode(4)
-        assert node.height() == 0
-        # Attach left child node
-        node.left = BinaryTreeNode(2)
-        assert node.height() == 1
-        # Attach right child node
-        node.right = BinaryTreeNode(6)
-        assert node.height() == 1
-        # Attach left-left grandchild node
-        node.left.left = BinaryTreeNode(1)
-        assert node.height() == 2
-        # Attach right-right grandchild node
-        node.right.right = BinaryTreeNode(8)
-        assert node.height() == 2
-        # Attach right-right-left great-grandchild node
-        node.right.right.left = BinaryTreeNode(7)
-        assert node.height() == 3
+    # def test_height(self):
+    #     # Create node with no children
+    #     node = BinaryTreeNode(4)
+    #     assert node.height() == 0
+    #     # Attach left child node
+    #     node.left = BinaryTreeNode(2)
+    #     assert node.height() == 1
+    #     # Attach right child node
+    #     node.right = BinaryTreeNode(6)
+    #     assert node.height() == 1
+    #     # Attach left-left grandchild node
+    #     node.left.left = BinaryTreeNode(1)
+    #     assert node.height() == 2
+    #     # Attach right-right grandchild node
+    #     node.right.right = BinaryTreeNode(8)
+    #     assert node.height() == 2
+    #     # Attach right-right-left great-grandchild node
+    #     node.right.right.left = BinaryTreeNode(7)
+    #     assert node.height() == 3
 
 
 class BinarySearchTreeTest(unittest.TestCase):

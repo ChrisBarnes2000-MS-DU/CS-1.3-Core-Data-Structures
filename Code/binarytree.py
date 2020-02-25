@@ -16,38 +16,41 @@ class BinaryTreeNode(object):
     def is_leaf(self):
         """Return True if this node is a leaf (has no children)."""
         # TODO: Check if both left child and right child have no value
-        return self.left is None and self.right is None
+        return (self.left is None) and (self.right is None)
 
     def is_branch(self):
         """Return True if this node is a branch (has at least one child)."""
         # TODO: Check if either left child or right child has a value
-        return self.left is not None or self.right is not None
+        return (self.left is not None) or (self.right is not None)
 
-    def height(self):
+    def height(self, node=None, height=0):
         """Return the height of this node (the number of edges on the longest
         downward path from this node to a descendant leaf node).
         TODO: Best and worst case running time: ??? under what conditions?"""
         # TODO: Check if left child has a value and if so calculate its height
         # TODO: Check if right child has a value and if so calculate its height
-        print(self)
-        left_count = 0
-        right_count = 0
-        if self.left is not None:
-            print("adding 1 to left heigh")
-            left_count += 1
-        elif self.right is not None:
-            print("adding 1 to right heigh")
-            right_count += 1 
-        else:
-            # if self.is_leaf:
-            print("I'm a leaf, there for my left and right should be None")
-            print("They are {} and {}".format(self.left, self.right))
-            return 0
+        # print("new recursion")
+        # if node is None or node is self.is_leaf():
+        #     print(node, height)
+        #     return height
+        # elif self.left is self.is_branch():
+        #     print("going left", node, height)
+        #     return self.height(self.left, height+1)
+        # elif self.right is self.is_branch():
+        #     print("going right", node, height)
+        #     return self.height(self.right, height+1)
 
-        # Return one more than the greater of the left height and right height
-        count = (left_count if left_count > right_count else right_count)
 
-        return count
+        # if self.is_leaf():
+        #     return height
+        # else:
+        #     if self.left is not None:
+        #         left_count = self.height(self.left, height+1)
+        #     elif self.right is not None:
+        #         right_count = self.height(self.right, height+1)
+        #     # Return one more than the greater of the left height and right height
+        #     height = (left_count if left_count > right_count else right_count)
+        #     return height + 1
 
 class BinarySearchTree(object):
 
@@ -100,9 +103,9 @@ class BinarySearchTree(object):
         # Handle the case where the tree is empty
         if self.is_empty():
             # TODO: Create a new root node
-            # self.root = ...
+            self.root = item
             # TODO: Increase the tree size
-            # self.size ...
+            self.size += 1
             return
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
