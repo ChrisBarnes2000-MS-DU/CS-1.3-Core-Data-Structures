@@ -23,34 +23,20 @@ class BinaryTreeNode(object):
         # TODO: Check if either left child or right child has a value
         return (self.left is not None) or (self.right is not None)
 
-    def height(self, node=None, height=0):
+    def height(self):
         """Return the height of this node (the number of edges on the longest
         downward path from this node to a descendant leaf node).
-        TODO: Best and worst case running time: ??? under what conditions?"""
-        # TODO: Check if left child has a value and if so calculate its height
-        # TODO: Check if right child has a value and if so calculate its height
-        # print("new recursion")
-        # if node is None or node is self.is_leaf():
-        #     print(node, height)
-        #     return height
-        # elif self.left is self.is_branch():
-        #     print("going left", node, height)
-        #     return self.height(self.left, height+1)
-        # elif self.right is self.is_branch():
-        #     print("going right", node, height)
-        #     return self.height(self.right, height+1)
-
-
-        # if self.is_leaf():
-        #     return height
-        # else:
-        #     if self.left is not None:
-        #         left_count = self.height(self.left, height+1)
-        #     elif self.right is not None:
-        #         right_count = self.height(self.right, height+1)
-        #     # Return one more than the greater of the left height and right height
-        #     height = (left_count if left_count > right_count else right_count)
-        #     return height + 1
+        Best: O(1) if the node is a leag
+        Worst: O(log n) if there are n items and node is root"""
+        if self.is_leaf():
+            return 0
+        else:
+            if self.left is None:
+                return 1 + self.right.height()
+            elif self.right is None:
+                return 1 + self.left.height()
+            else:
+                return 1 + max(self.left.height(), self.right.height())
 
 class BinarySearchTree(object):
 
@@ -110,7 +96,6 @@ class BinarySearchTree(object):
         # Find the parent node of where the given item should be inserted
         parent = self._find_parent_node_recursive(item, self.root)
         # TODO: Check if the given item should be inserted left of parent node
-        # print("root is", self.root, "parent is", parent, "inserting", item)
         if parent is None:
             parent = self.root
         if item < parent.data:
@@ -211,7 +196,6 @@ class BinarySearchTree(object):
             # Not found (base case)
             return None
         # TODO: Check if the given item matches the node's data
-        print("looking for", item, "currently at", node, "it's parrent is", parent)
         if item is node.data:
             # Return the parent of the found node
             return parent
