@@ -92,7 +92,8 @@ class BinarySearchTree(object):
             self.size += 1
             return
         # Find the parent node of where the given item should be inserted
-        parent = self._find_parent_node_recursive(item, self.root)
+        # parent = self._find_parent_node_recursive(item, self.root)
+        parent = self._find_parent_node_iterative(item, self.root)
         # TODO: Check if the given item should be inserted left of parent node
         if parent is None:
             parent = self.root
