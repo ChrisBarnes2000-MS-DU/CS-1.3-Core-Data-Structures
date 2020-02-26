@@ -231,10 +231,10 @@ class BinarySearchTree(object):
     def _traverse_in_order_recursive(self, node, visit):
         """Traverse this binary tree with recursive in-order traversal (DFS).
         Start at the given node and visit each node with the given function.
-        TODO: Running time: ??? Why and under what conditions?
-        TODO: Memory usage: ??? Why and under what conditions?"""
-        # TODO: Traverse left subtree, if it exists
+        Running time: O(n) since there are n nodes
+        Memory usage: O(h) since item from every node at the same height is being added to call stack"""
         if node is not None:
+            # TODO: Traverse left subtree, if it exists
             self._traverse_in_order_recursive(node.left, visit)
             # TODO: Visit this node's data with given function
             visit(node.data)
@@ -267,9 +267,9 @@ class BinarySearchTree(object):
             # TODO: Visit this node's data with given function
             visit(node.data)
             # TODO: Traverse left subtree, if it exists
-            self._traverse_pre_order_recursive(node.left)
+            self._traverse_pre_order_recursive(node.left, visit)
             # TODO: Traverse right subtree, if it exists
-            self._traverse_pre_order_recursive(node.right)
+            self._traverse_pre_order_recursive(node.right, visit)
 
     def _traverse_pre_order_iterative(self, node, visit):
         """Traverse this binary tree with iterative pre-order traversal (DFS).
@@ -294,9 +294,9 @@ class BinarySearchTree(object):
         TODO: Memory usage: ??? Why and under what conditions?"""
         if node is not None:
             # TODO: Traverse left subtree, if it exists
-            self._traverse_post_order_recursive(node.left)
+            self._traverse_post_order_recursive(node.left, visit)
             # TODO: Traverse right subtree, if it exists
-            self._traverse_post_order_recursive(node.right)
+            self._traverse_post_order_recursive(node.right, visit)
             # TODO: Visit this node's data with given function
             visit(node.data)
 
