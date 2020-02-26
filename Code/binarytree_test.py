@@ -166,6 +166,7 @@ class BinarySearchTreeTest(unittest.TestCase):
         tree = BinarySearchTree()
         for item in items:
             tree.insert(item)
+        print(tree)
         assert tree.root.data == 4
         assert tree.root.left.data == 2
         assert tree.root.right.data == 6
