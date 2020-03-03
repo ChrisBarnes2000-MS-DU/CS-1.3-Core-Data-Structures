@@ -70,7 +70,8 @@ class AbstractSetTest(unittest.TestCase):
     #     print(set_b)
 
     # def test_intersection(self):
-    #     pass
+    #     set_a = TreeSet([1, 2, 3, 4, 5])
+    #     set_b = [2, 3, 4]
 
 
     # def test_difference(self):
@@ -82,15 +83,15 @@ class AbstractSetTest(unittest.TestCase):
         is_subset = set_a.is_subset([2,3,4])
         assert is_subset is True
         
-        set_b = [2, 3, 4]
+        set_b = TreeSet([2, 3, 4])
         is_subset = set_a.is_subset(set_b)
         assert is_subset is True
         
-        set_c = [5, 3, 4]
+        set_c = TreeSet([5, 3, 4])
         is_subset = set_a.is_subset(set_c)
         assert is_subset is True
 
-        set_d = [6,7,8]
+        set_d = TreeSet([6, 7, 8])
         is_subset = set_a.is_subset(set_d)
         assert is_subset is False
 
