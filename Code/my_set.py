@@ -24,6 +24,7 @@ class AbstractSet:
                 continue
             else:
                 raise ValueError(item, "Is not in this set")
+        return True
 
 
 
