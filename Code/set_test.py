@@ -61,17 +61,25 @@ class AbstractSetTest(unittest.TestCase):
     difference(other_set) - return a new set that is the difference of this set and other_set
     is_subset(other_set) - return a boolean indicating whether other_set is a subset of this set
     """
-    # def test_union(self):
-    #     set_a = TreeSet([1,2,3,4,5])
-    #     set_b = TreeSet([6,7,8,9,10])
+    def test_union(self):
+        set_a = TreeSet([1,2,3,4,5])
+        set_b = TreeSet([6,7,8,9,10])
 
-    #     set_c = set_a.union(set_b)
-    #     print(set_a)
-    #     print(set_b)
+        set_c = set_a.union(set_b)
+        print(set_a)
+        print(set_b)
+        print(set_c)
+        assert set_c.is_subset(set_a) is True
+        assert set_c.is_subset(set_b) is True
+        assert set_c.is_subset([5,10,30,80,20]) is False
 
-    # def test_intersection(self):
-    #     set_a = TreeSet([1, 2, 3, 4, 5])
-    #     set_b = [2, 3, 4]
+
+    def test_intersection(self):
+        set_a = TreeSet([1, 2, 3, 4, 5])
+        set_b = TreeSet([2, 3, 4, 7, 8, 10])
+        is_intersection = set_a.intersection(set_b)
+        assert is_intersection.items() == [2, 3, 4]
+        assert is_intersection.items() != [7, 8, 10]
 
 
     # def test_difference(self):
@@ -95,12 +103,6 @@ class AbstractSetTest(unittest.TestCase):
         is_subset = set_a.is_subset(set_d)
         assert is_subset is False
 
-
-
-    # def test_function(self):
-        # assert False == True
-    #     pass
-    
 
 
 if __name__ == '__main__':
