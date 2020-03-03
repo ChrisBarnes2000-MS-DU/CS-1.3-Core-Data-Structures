@@ -212,13 +212,60 @@ class BinarySearchTree(object):
             # Hint: Remember to update the parent parameter
             return node if node.right is None else self._find_parent_node_recursive(item, node.right, node)
 
-    def delete(self, item):
+    def delete(self, root, key):
         """Remove given item from this tree, if present, or raise ValueError.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
         # TODO: Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
+        # item = self._find_node_recursive(key, root)
+        # parent = self._find_parent_node_recursive(key, root, item)
+
+
+# Case 1 Root is item
+        # if root doesn't exist, just return it
+        if not root:
+            return root
+        elif root.data > key:
+            # Find the node in the left subtree if key value is less than root value
+            root.left = self.delete(root.left, key)
+        elif root.data < key:
+            # Find the node in right subtree if key value is greater than root value,
+            root.right = self.delete(root.right, key)
+# Case 2 search for the 'adjacent' replacement if it has children
+        else:
+            # Delete the node if root.data == key
+            if not root.right:
+                # If there is no right children delete the node and new root would be root.left
+                self.size -= 1
+                return root.left
+            if not root.left:
+                # If there is no left children delete the node and new root would be root.right
+                self.size -= 1
+                return root.right
+# Case 3
+            # If both left and right children exist in the node replace its data with
+            # the minimum data in the right subtree. Now delete that minimum node
+            # in the right subtree
+            temp_val = root.right
+            mini_val = temp_val.data
+            while temp_val.left:
+                temp_val = temp_val.left
+                mini_val = temp_val.data
+            # Replace value
+            self.size -= 1
+            root.val = mini_val
+            # Delete the minimum node in right subtree
+            root.right = self.delete(root.right, root.data)
+            return root
+
+
+
+
+
+
+
 
     def items_in_order(self):
         """Return an in-order list of all items in this binary search tree."""

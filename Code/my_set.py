@@ -5,6 +5,7 @@ class AbstractSet:
     def union(self, other_set):
         pass
 
+
     def intersection(self, other_set):
         new_set = TreeSet()
         for item in self.items():
@@ -12,8 +13,10 @@ class AbstractSet:
                 new_set.add(item)
         return new_set
 
+
     def difference(self):
         pass
+
 
     def is_subset(self, items):
         for item in items:
@@ -21,6 +24,8 @@ class AbstractSet:
                 continue
             else:
                 raise ValueError(item, "Is not in this set")
+
+
 
 
 class TreeSet(AbstractSet):
@@ -31,15 +36,24 @@ class TreeSet(AbstractSet):
             for element in elements:
                 self.add(element)
 
+
+    @property
+    def size(self):
+        return self.tree.size
+
+
     def __repr__(self):
         """Return a string representation of this binary tree node."""
         return 'Set({!r})'.format(self.tree.items_in_order())
 
+
     def is_empty(self):
         return self.tree.is_empty()
 
+
     def contains(self, item):
         return self.tree.contains(item)
+
 
     def add(self, item):
         if not self.contains(item):
@@ -47,12 +61,16 @@ class TreeSet(AbstractSet):
 
     def remove(self, item):
         if self.contains(item):
-            self.tree.remove(item)
+            self.tree.delete(self.tree.root, item)
         else:
             raise ValueError(item, "Is not in this set")
 
     def items(self):
         return self.tree.items_in_order()
+
+
+
+
 
 def test_Set():
     # Create a complete binary search tree of 3, 7, or 15 items in level-order
