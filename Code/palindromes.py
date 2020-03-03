@@ -67,6 +67,15 @@ def is_palindrome_recursive(text, left=None, right=None):
         return False
 
 
+# def ispalindrome(a):
+#     return a[::-1].lower() == a.lower()
+
+# words = (word.strip() for word in open('/usr/share/dict/words', 'r'))
+# palindromes = (word for word in words if ispalindrome(word))
+# print ('\n'.join(palindromes))
+
+
+
 def main():
     import sys
     args = sys.argv[1:]  # Ignore script file name

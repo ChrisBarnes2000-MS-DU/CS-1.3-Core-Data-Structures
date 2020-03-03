@@ -36,7 +36,7 @@ class BinaryTreeNode(object):
     def height(self):
         """Return the height of this node (the number of edges on the longest
         downward path from this node to a descendant leaf node).
-        Best: O(1) if the node is a leag
+        Best: O(1) if the node is a leaf
         Worst: O(log n) if there are n items and node is root"""
         if self.is_leaf():
             return 0
