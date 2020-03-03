@@ -9,7 +9,7 @@ class TreeSetTest(unittest.TestCase):
         remove(element) - remove element from this set, if present, or else raise KeyError"""
     def test_init(self):
         my_set = TreeSet()
-        assert my_set.is_empty() is True
+        assert my_set.is_empty is True
         assert my_set.items() == []
         assert my_set.size is 0
         assert my_set.contains(5) is False
@@ -17,10 +17,11 @@ class TreeSetTest(unittest.TestCase):
 
     def test_add(self):
         my_set = TreeSet()
-        assert my_set.is_empty() is True
+        assert my_set.is_empty is True
         assert my_set.items() == []
         assert my_set.size is 0
         my_set.add(5)
+        assert my_set.is_empty is False
         assert my_set.contains(5) is True
         assert my_set.contains(8) is False
         assert my_set.items() == [5]
@@ -33,6 +34,7 @@ class TreeSetTest(unittest.TestCase):
 
     def test_remove(self):
         my_set = TreeSet([4, 2, 6, 1, 3, 5, 7])
+        assert my_set.is_empty is False
         assert my_set.tree.root.data == 4
         assert my_set.tree.root.left.data == 2
         assert my_set.tree.root.right.data == 6
@@ -48,6 +50,7 @@ class TreeSetTest(unittest.TestCase):
         assert my_set.size is 7
         my_set.remove(4)
 
+        assert my_set.is_empty is False
         assert my_set.tree.root.data == 5
         assert my_set.tree.root.left.data == 2
         assert my_set.tree.root.right.data == 6
@@ -64,6 +67,7 @@ class TreeSetTest(unittest.TestCase):
         my_set.remove(5)
         my_set.remove(6)
 
+        assert my_set.is_empty is False
         assert my_set.tree.root.data == 7
         assert my_set.tree.root.left.data == 2
         assert my_set.tree.root.right == None
@@ -81,7 +85,7 @@ class TreeSetTest(unittest.TestCase):
         my_set.remove(1)
         my_set.remove(7)
 
-        assert my_set.is_empty() is True
+        assert my_set.is_empty is True
         assert my_set.items() == []
         assert my_set.size is 0
 
@@ -95,6 +99,7 @@ class AbstractSetTest(unittest.TestCase):
         set_a = TreeSet([1,2,3,4,5])
         set_b = TreeSet([6,7,8,9,10])
         set_c = set_a.union(set_b)
+        assert set_c.is_empty is False
         assert set_c.is_subset(set_a) is True
         assert set_c.is_subset(set_b) is True
         assert set_c.items() == [1,2,3,4,5,6,7,8,9,10]
@@ -105,6 +110,7 @@ class AbstractSetTest(unittest.TestCase):
         set_a = TreeSet([1, 2, 3, 4, 5])
         set_b = TreeSet([2, 3, 4, 7, 8, 10])
         is_intersection = set_a.intersection(set_b)
+        assert is_intersection.is_empty is False
         assert is_intersection.items() == [2, 3, 4]
         assert is_intersection.items() != [7, 8, 10]
 
@@ -113,6 +119,7 @@ class AbstractSetTest(unittest.TestCase):
         set_a = TreeSet([1, 2, 3, 4, 5])
         set_b = TreeSet([2, 3, 4, 7, 8, 10])
         is_difference = set_a.difference(set_b)
+        assert is_difference.is_empty is False
         assert is_difference.items() != [2, 3, 4]
         assert is_difference.items() == [1, 5, 7, 8, 10]
 
@@ -120,6 +127,7 @@ class AbstractSetTest(unittest.TestCase):
     def test_is_subset(self):
         set_a = TreeSet([1, 2, 3, 4, 5])
         is_subset = set_a.is_subset([2,3,4])
+        assert set_a.is_empty is False
         assert is_subset is True
         
         set_b = TreeSet([2, 3, 4])
