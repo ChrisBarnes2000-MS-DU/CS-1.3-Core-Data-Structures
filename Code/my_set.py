@@ -15,25 +15,27 @@ class AbstractSet:
 
     def intersection(self, other_set):
         new_set = TreeSet()
-        for item in self.items():
+        for item in self:
             if other_set.contains(item):
                 new_set.add(item)
         return new_set
 
 
-    # def difference(self):
-    #     new_set = TreeSet()
-    #     for item in self.items():
-    #         if other_set.contains(item):
-    #             new_set.add(item)
-    #     return new_set
+    def difference(self, other_set):
+        new_set = TreeSet()
+        for item in self:
+            if not other_set.contains(item) and item not in new_set:
+                new_set.add(item)
+        for item in other_set:
+            if not self.contains(item) and item not in new_set:
+                new_set.add(item)
+        return new_set
 
 
     def is_subset(self, items):
         for item in items:
             if not self.contains(item):
                 return False
-            #     raise ValueError(item, "Is not in this set")
         return True
 
 

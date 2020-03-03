@@ -3,14 +3,10 @@ import unittest
 
 
 class TreeSetTest(unittest.TestCase):
-    """
-        size - property that tracks the number of elements in constant time
+    """size - property that tracks the number of elements in constant time
         contains(element) - return a boolean indicating whether element is in this set
         add(element) - add element to this set, if not present already
-        remove(element) - remove element from this set, if present, or else raise KeyError
-    """
-
-
+        remove(element) - remove element from this set, if present, or else raise KeyError"""
     def test_init(self):
         my_set = TreeSet()
         assert my_set.is_empty() is True
@@ -55,22 +51,17 @@ class TreeSetTest(unittest.TestCase):
 
 
 class AbstractSetTest(unittest.TestCase):
-    """
-    union(other_set) - return a new set that is the union of this set and other_set
-    intersection(other_set) - return a new set that is the intersection of this set and other_set
-    difference(other_set) - return a new set that is the difference of this set and other_set
-    is_subset(other_set) - return a boolean indicating whether other_set is a subset of this set
-    """
+    """union(other_set) - return a new set that is the union of this set and other_set
+        intersection(other_set) - return a new set that is the intersection of this set and other_set
+        difference(other_set) - return a new set that is the difference of this set and other_set
+        is_subset(other_set) - return a boolean indicating whether other_set is a subset of this set"""
     def test_union(self):
         set_a = TreeSet([1,2,3,4,5])
         set_b = TreeSet([6,7,8,9,10])
-
         set_c = set_a.union(set_b)
-        print(set_a)
-        print(set_b)
-        print(set_c)
         assert set_c.is_subset(set_a) is True
         assert set_c.is_subset(set_b) is True
+        assert set_c.items() == [1,2,3,4,5,6,7,8,9,10]
         assert set_c.is_subset([5,10,30,80,20]) is False
 
 
@@ -82,8 +73,12 @@ class AbstractSetTest(unittest.TestCase):
         assert is_intersection.items() != [7, 8, 10]
 
 
-    # def test_difference(self):
-    #     pass
+    def test_difference(self):
+        set_a = TreeSet([1, 2, 3, 4, 5])
+        set_b = TreeSet([2, 3, 4, 7, 8, 10])
+        is_difference = set_a.difference(set_b)
+        assert is_difference.items() != [2, 3, 4]
+        assert is_difference.items() == [1, 5, 7, 8, 10]
 
 
     def test_is_subset(self):
