@@ -80,11 +80,19 @@ class AbstractSetTest(unittest.TestCase):
     def test_is_subset(self):
         set_a = TreeSet([1, 2, 3, 4, 5])
         is_subset = set_a.is_subset([2,3,4])
-        assert is_subset
+        assert is_subset is True
+        
         set_b = [2, 3, 4]
         is_subset = set_a.is_subset(set_b)
-        assert is_subset
+        assert is_subset is True
+        
+        set_c = [5, 3, 4]
+        is_subset = set_a.is_subset(set_c)
+        assert is_subset is True
 
+        set_d = [6,7,8]
+        is_subset = set_a.is_subset(set_d)
+        assert is_subset is False
 
 
 

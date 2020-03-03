@@ -20,10 +20,9 @@ class AbstractSet:
 
     def is_subset(self, items):
         for item in items:
-            if self.contains(item):
-                continue
-            else:
-                raise ValueError(item, "Is not in this set")
+            if not self.contains(item):
+                return False
+            #     raise ValueError(item, "Is not in this set")
         return True
 
 
