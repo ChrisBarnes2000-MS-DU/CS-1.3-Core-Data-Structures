@@ -25,6 +25,14 @@ class BinaryTreeNode(object):
         # TODO: Check if either left child or right child has a value
         return (self.left is not None) or (self.right is not None)
 
+    def get_children(self):
+        if self.left is None and self.right is None:
+            return 0
+        if self.left is not None and self.right is not None:
+            return 2
+        else:
+            return 1
+
     def height(self):
         """Return the height of this node (the number of edges on the longest
         downward path from this node to a descendant leaf node).
@@ -212,59 +220,64 @@ class BinarySearchTree(object):
             # Hint: Remember to update the parent parameter
             return node if node.right is None else self._find_parent_node_recursive(item, node.right, node)
 
-    def delete(self, root, key):
+    def delete(self, item):
         """Remove given item from this tree, if present, or raise ValueError.
         TODO: Best case running time: ??? under what conditions?
         TODO: Worst case running time: ??? under what conditions?"""
         # TODO: Use helper methods and break this algorithm down into 3 cases
         # based on how many children the node containing the given item has and
         # implement new helper methods for subtasks of the more complex cases
-        # item = self._find_node_recursive(key, root)
-        # parent = self._find_parent_node_recursive(key, root, item)
+        node = self._find_node_recursive(item, self.root)
+        parent = self._find_parent_node_recursive(item, self.root)
+        children = node.get_children()
+        successor = node
 
-
-# Case 1 Root is item
-        # if root doesn't exist, just return it
-        if not root:
-            return root
-        elif root.data > key:
-            # Find the node in the left subtree if key value is less than root value
-            root.left = self.delete(root.left, key)
-        elif root.data < key:
-            # Find the node in right subtree if key value is greater than root value,
-            root.right = self.delete(root.right, key)
-# Case 2 search for the 'adjacent' replacement if it has children
-        else:
-            # Delete the node if root.data == key
-            if not root.right:
-                # If there is no right children delete the node and new root would be root.left
-                self.size -= 1
-                return root.left
-            if not root.left:
-                # If there is no left children delete the node and new root would be root.right
-                self.size -= 1
-                return root.right
-# Case 3
-            # If both left and right children exist in the node replace its data with
-            # the minimum data in the right subtree. Now delete that minimum node
-            # in the right subtree
-            temp_val = root.right
-            mini_val = temp_val.data
-            while temp_val.left:
-                temp_val = temp_val.left
-                mini_val = temp_val.data
-            # Replace value
+        if self.size == 1:
             self.size -= 1
-            root.val = mini_val
-            # Delete the minimum node in right subtree
-            root.right = self.delete(root.right, root.data)
-            return root
+            self.root = None
 
+        if node == None:
+            raise ValueError("Not Found")
 
+        if children == 0 and parent is not None:
+            if node.data > parent.data:
+                self.size -= 1
+                parent.right = None
+            if node.data < parent.data:
+                self.size -= 1
+                parent.left = None
 
+        if children == 1:
+            if parent.data < node.data:
+                if node.left == None:
+                    self.size -= 1
+                    parent.right = node.right
+                if node.right == None:
+                    self.size -= 1
+                    parent.right = node.left
 
+            if parent.data > node.data:
+                if node.left == None:
+                    self.size -= 1
+                    parent.left = node.right
+                if node.right == None:
+                    self.size -= 1
+                    parent.left = node.left
 
+        if children == 2:
+            successor = node.right
+            while successor.left is not None:
+                successor = successor.left
+            self.delete(successor.data)
+            successor.left = node.left
+            successor.right = node.right
 
+            if self.root:
+                # self.size -= 1
+                self.root = successor
+            else:
+                # self.size -= 1
+                self._replace_node(node, parent, successor)
 
 
     def items_in_order(self):

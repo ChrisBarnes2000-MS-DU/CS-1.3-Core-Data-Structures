@@ -39,8 +39,6 @@ class AbstractSet:
         return True
 
 
-
-
 class TreeSet(AbstractSet):
     def __init__(self, elements=None):
         """Initialize this binary tree node with the given data."""
@@ -79,7 +77,7 @@ class TreeSet(AbstractSet):
 
     def remove(self, item):
         if self.contains(item):
-            self.tree.delete(self.tree.root, item)
+            self.tree.delete(item)
         else:
             raise ValueError(item, "Is not in this set")
 

@@ -181,43 +181,47 @@ class BinarySearchTreeTest(unittest.TestCase):
         assert tree.root.data == 2
         assert tree.root.left.data == 1
         assert tree.root.right.data == 3
-        # TODO: Test structure of tree after each deletion
-        # tree.delete(2)
-        # assert tree.root.data == ...
-        # assert tree.root.left is ...
-        # assert tree.root.right is ...
-        # tree.delete(1)
-        # assert tree.root.data == ...
-        # assert tree.root.left is ...
-        # assert tree.root.right is ...
-        # tree.delete(3)
-        # assert tree.root.data is ...
-        # assert tree.root.left is ...
-        # assert tree.root.right is ...
+        tree.delete(2)
+        assert tree.root.data == 3
+        assert tree.root.left is 1
+        assert tree.root.right is None
+        tree.delete(1)
+        assert tree.root.data == 3
+        assert tree.root.left is None
+        assert tree.root.right is None
+        tree.delete(3)
+        assert tree.root.data is None
+        assert tree.root.left is None
+        assert tree.root.right is None
 
     def DISABLED_test_delete_with_7_items(self):
         # Create a complete binary search tree of 7 items in level-order
         items = [4, 2, 6, 1, 3, 5, 7]
         tree = BinarySearchTree(items)
-        # TODO: Test structure of tree after each deletion
-        # tree.delete(4)
-        # assert tree.root.data == ...
-        # assert tree.root.left.data == ...
-        # assert tree.root.right.data == ...
-        # assert ...
-        # assert ...
-        # tree.delete(...)
-        # assert tree.root.data == ...
-        # assert tree.root.left.data == ...
-        # assert tree.root.right.data == ...
-        # assert ...
-        # assert ...
-        # tree.delete(...)
-        # assert tree.root.data == ...
-        # assert tree.root.left.data == ...
-        # assert tree.root.right.data == ...
-        # assert ...
-        # assert ...
+        tree.delete(4)
+        assert tree.root.data == 3
+        assert tree.root.left.data == 2
+        assert tree.root.right.data == 6
+        assert tree.root.left.left.data == 1
+        assert tree.root.left.right.data == None
+        assert tree.root.right.right.data == 7
+        assert tree.root.right.left.data == 5
+        tree.delete(6)
+        assert tree.root.data == 3
+        assert tree.root.left.data == 2
+        assert tree.root.right.data == 5
+        assert tree.root.left.left.data == 1
+        assert tree.root.left.right.data == None
+        assert tree.root.right.right.data == 7
+        assert tree.root.right.left.data == None
+        tree.delete(7)
+        assert tree.root.data == 3
+        assert tree.root.left.data == 2
+        assert tree.root.right.data == 5
+        assert tree.root.left.left.data == 1
+        assert tree.root.left.right.data == None
+        assert tree.root.right.right.data == None
+        assert tree.root.right.left.data == None
 
     def test_items_in_order_with_3_strings(self):
         # Create a complete binary search tree of 3 strings in level-order

@@ -31,23 +31,59 @@ class TreeSetTest(unittest.TestCase):
         assert my_set.size is 2
         return my_set
 
-    # def test_remove(self):
-    #     my_set = self.test_add()
-    #     assert my_set.contains(5) is True
-    #     assert my_set.contains(8) is True
-    #     assert my_set.items() == [5, 8]
-    #     assert my_set.size is 2
-    #     my_set.remove(8)
-    #     assert my_set.contains(5) is True
-    #     assert my_set.contains(8) is False
-    #     assert my_set.items() == [5]
-    #     assert my_set.size is 1
-    #     my_set.remove(5)
-    #     assert my_set.is_empty() is True
-    #     assert my_set.items() == []
-    #     assert my_set.size is 0
+    def test_remove(self):
+        my_set = TreeSet([4, 2, 6, 1, 3, 5, 7])
+        assert my_set.tree.root.data == 4
+        assert my_set.tree.root.left.data == 2
+        assert my_set.tree.root.right.data == 6
+        assert my_set.tree.root.left.left.data == 1
+        assert my_set.tree.root.left.right.data == 3
+        assert my_set.tree.root.right.left.data == 5
+        assert my_set.tree.root.right.right.data == 7
 
+        assert my_set.contains(4) is True
+        assert my_set.contains(5) is True
+        assert my_set.contains(8) is False
+        assert my_set.items() == [1,2,3,4,5,6,7]
+        assert my_set.size is 7
+        my_set.remove(4)
 
+        assert my_set.tree.root.data == 5
+        assert my_set.tree.root.left.data == 2
+        assert my_set.tree.root.right.data == 6
+        assert my_set.tree.root.left.left.data == 1
+        assert my_set.tree.root.left.right.data == 3
+        assert my_set.tree.root.right.right.data == 7
+        assert my_set.tree.root.right.left == None
+
+        assert my_set.contains(4) is False
+        assert my_set.contains(5) is True
+        assert my_set.contains(8) is False
+        assert my_set.items() == [1, 2, 3, 5, 6, 7]
+        assert my_set.size is 6
+        my_set.remove(5)
+        my_set.remove(6)
+
+        assert my_set.tree.root.data == 7
+        assert my_set.tree.root.left.data == 2
+        assert my_set.tree.root.right == None
+        assert my_set.tree.root.left.left.data == 1
+        assert my_set.tree.root.left.right.data == 3
+
+        assert my_set.contains(4) is False
+        assert my_set.contains(5) is False
+        assert my_set.contains(3) is True
+        assert my_set.items() == [1, 2, 3, 7]
+        assert my_set.size is 4
+
+        my_set.remove(3)
+        my_set.remove(2)
+        my_set.remove(1)
+        my_set.remove(7)
+
+        assert my_set.is_empty() is True
+        assert my_set.items() == []
+        assert my_set.size is 0
 
 
 class AbstractSetTest(unittest.TestCase):
