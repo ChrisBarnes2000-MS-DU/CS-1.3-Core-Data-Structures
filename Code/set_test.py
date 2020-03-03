@@ -62,8 +62,11 @@ class AbstractSetTest(unittest.TestCase):
     is_subset(other_set) - return a boolean indicating whether other_set is a subset of this set
     """
     def test_union(self):
-        pass
+        set_a = TreeSet([1,2,3,4,5])
+        set_b = TreeSet([6,7,8,9,10])
 
+        set_c = set_a.union(set_b)
+        print(set_c)
 
     # def test_intersection(self):
     #     pass
