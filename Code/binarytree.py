@@ -60,7 +60,9 @@ class BinarySearchTree(object):
 
     def __repr__(self):
         """Return a string representation of this binary search tree."""
-        return 'BinarySearchTree({} nodes)'.format(self.size)
+        # return 'BinarySearchTree({} nodes)'.format(self.size)
+        return 'BinarySearchTree({})'.format(self.items_in_order())
+
 
     def is_empty(self):
         """Return True if this binary search tree is empty (has no nodes)."""

@@ -1,59 +1,79 @@
 from binarytree import BinarySearchTree
+from hashtable import HashTable
 
 
 class AbstractSet:
+    def __iter__(self):
+        for item in self.items():
+            yield item
+
+
     def union(self, other_set):
         """ Makes a union with the other set and returns a new set 
-            Time complexity: O(n^2) for the 2 for loops on different sets
-                    O(logN) Based off contains method and O(1) for add"""
-        new_set = TreeSet()
-        for item in self:
-            if item not in new_set:
-                new_set.add(item)
-        for item in other_set:
-            if item not in new_set:
-                new_set.add(item)
-        return new_set
+            Time complexity: O(m+n log(m+n)) same for both
+                    O(n) for looping through initial items
+                    O(logn) Based off contains method and O(1) for add"""
+        new_set = TreeSet(self)     # O(m)
+        for item in other_set:      # O(n)
+            new_set.add(item)       # O(log (m + n))
+        return new_set              # O(m+n log(m+n))
 
 
     def intersection(self, other_set):
         """ Makes an intersection between self and other set
-            Time complexity: O(n) for looping through initial items
-                    O(logN) Based off contains method and O(1) for add"""
+            Time complexity: O(mlogn)
+                    O(m) for looping through initial items
+                    O(log n) Based off contains method and O(log min(m,n)) for add"""
         new_set = TreeSet()
-        for item in self:
-            if other_set.contains(item):
-                new_set.add(item)
-        return new_set
+        # new_set = HashSet()
+        if self.size < other_set.size:
+            for item in self:                   # m 
+                if other_set.contains(item):    #log n
+                    new_set.add(item)           #log of [new_set <= min(m, n) ]
+            return new_set
 
 
     def difference(self, other_set):
         """ Gets the difference between two sets and returns it.
-            Time complexity: O(n^2) for the 2 for loops on different sets
-                    O(logN) Based off contains method and O(1) for add"""
+            Time complexity: O(mlogm) + O(nlogn) same for both
+                    O(n) for looping through initial items
+                    O(logn) Based off contains method and O(1) for add"""
         new_set = TreeSet()
         for item in self:
-            if not other_set.contains(item) and item not in new_set:
+            if not other_set.contains(item):
                 new_set.add(item)
         for item in other_set:
-            if not self.contains(item) and item not in new_set:
+            if not self.contains(item):
                 new_set.add(item)
         return new_set
 
 
     def is_subset(self, items):
         """ Checks if all the items in other_set are in self
-            Time complexity:  O(n) for looping through initial items
-                    O(logN) Based off contains method"""
+            Time complexity:  O(nlogn) 
+                    O(n) for looping through initial items
+                    O(logn) Based off contains method"""
         for item in items:
             if not self.contains(item):
                 return False
         return True
 
 
+    @property
+    def is_empty(self):
+        """ Checks if the set is empty
+            Time complexity: O(1) checks if there is a root present"""
+        return self.size == 0
+
+
+
+
+
+
+
 class TreeSet(AbstractSet):
     def __init__(self, elements=None):
-        """Initialize this binary tree node with the given data."""
+        """Initialize this binary tree with the given data."""
         self.tree = BinarySearchTree()
         if elements is not None:
             for element in elements:
@@ -64,18 +84,6 @@ class TreeSet(AbstractSet):
     def size(self):
         """ Makes size an attribute """
         return self.tree.size
-
-
-    @property
-    def is_empty(self):
-        """ Checks if the set is empty
-            Time complexity: O(1) checks if there is a root present"""
-        return self.tree.is_empty()
-
-
-    def __iter__(self):
-        for item in self.items():
-            yield item
 
 
     def __repr__(self):
@@ -96,6 +104,7 @@ class TreeSet(AbstractSet):
         if not self.contains(item):
             self.tree.insert(item)
 
+
     def remove(self, item):
         """ Check if item exists and remove it or raise Keyerror
             Time complexity: O() """
@@ -104,7 +113,46 @@ class TreeSet(AbstractSet):
         else:
             raise ValueError(item, "Is not in this set")
 
+
     def items(self):
         return self.tree.items_in_order()
 
 
+
+
+
+class HashSet(AbstractSet):
+    def __init__(self, elements=None):
+        """Initialize this hash table with the given data."""
+        self.table = HashTable()
+        if elements is not None:
+            for element in elements:
+                self.add(element)
+
+
+    @property
+    def size(self):
+        """ Makes size an attribute """
+        return self.tree.size
+
+
+    def __repr__(self):
+        """Return a string representation of this binary tree node."""
+        return 'Set({!r})'.format(self.table)
+
+
+    def contains(self, item):
+        return self.table.contains(item)
+
+
+    def add(self, item):
+        if not self.contains(item):
+            self.table.set(item)
+
+
+    def remove(self, item):
+        self.table.delete(item)
+
+
+    def items(self):
+        return self.table.items()
