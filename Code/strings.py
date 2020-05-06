@@ -98,7 +98,7 @@ def test_string_algorithms(text, pattern):
 
 
 def main():
-    """Read command-line arguments and test string searching algorithms."""
+    """Read command--line arguments and test string searching algorithms."""
     import sys
     args = sys.argv[1:]  # Ignore script file name
     if len(args) == 2:
